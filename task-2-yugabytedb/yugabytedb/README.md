@@ -75,7 +75,7 @@ EXPLAIN ANALYZE SELECT * FROM produk WHERE id = 3;
 ```
 mkdir yugabyte-lab
 ```
-<img width="600" height="456" alt="image" src="https://github.com/user-attachments/assets/f4d8697a-7bce-4e05-a4a8-fa91a526f4e5" />
+<img width="400" height="456" alt="image" src="https://github.com/user-attachments/assets/f4d8697a-7bce-4e05-a4a8-fa91a526f4e5" />
 
 ```
 cd yugabyte-lab
@@ -92,7 +92,7 @@ MASTER_UI_PORT=7000
 TSERVER_UI_PORT=9000
 '@ | Out-File -FilePath .env -Encoding utf8
 ```
-<img width="600" height="278" alt="image" src="https://github.com/user-attachments/assets/63b1cd1b-469d-4bcf-85fd-1b92fb155683" />
+<img width="400" height="278" alt="image" src="https://github.com/user-attachments/assets/63b1cd1b-469d-4bcf-85fd-1b92fb155683" />
 
 > buat file docker-compose.yml
 ```
@@ -110,7 +110,7 @@ services:
     command: [ "bin/yugabyted", "start", "--daemon=false", "--listen=0.0.0.0" ]
 '@ | Out-File -FilePath docker-compose.yml -Encoding utf8
 ```
-<img width="600" height="342" alt="image" src="https://github.com/user-attachments/assets/06abb98f-6698-4862-8d0f-6bbf4141ca1a" />
+<img width="400" height="342" alt="image" src="https://github.com/user-attachments/assets/06abb98f-6698-4862-8d0f-6bbf4141ca1a" />
 
 > jalankan Docker Compose
 ```
