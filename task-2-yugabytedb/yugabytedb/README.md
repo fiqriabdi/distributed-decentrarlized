@@ -11,13 +11,13 @@ docker pull software.yugabyte.com/yugabytedb/yugabyte:2025.2.0.0-b131
 ```
 docker run -d --name yugabyte -p7000:7000 -p9000:9000 -p15433:15433 -p5433:5433 -p9042:9042  yugabytedb/yugabyte:2025.2.0.0-b131 bin/yugabyted start  --background=false
 ```
-<img width="940" height="160" alt="image" src="https://github.com/user-attachments/assets/d788fe1c-87e0-49ff-af56-8bb08adce333" />
+<img width="600" height="160" alt="image" src="https://github.com/user-attachments/assets/d788fe1c-87e0-49ff-af56-8bb08adce333" />
 
 ```
 docker ps
 ```
 > memeriksa status klaster
-<img width="940" height="200" alt="image" src="https://github.com/user-attachments/assets/cb8fbd5b-b4d3-4ead-81a5-b5c266f97d6b" />
+<img width="600" height="200" alt="image" src="https://github.com/user-attachments/assets/cb8fbd5b-b4d3-4ead-81a5-b5c266f97d6b" />
 
 > Ekstraksi
 ```
@@ -48,7 +48,7 @@ CREATE TABLE produk (
     harga INT
 ) SPLIT INTO 3 TABLETS;
 ```
-<img width="600" height="205" alt="image" src="https://github.com/user-attachments/assets/716a94f8-a9bc-407d-bbf8-57066d9433b2" />
+<img width="400" height="205" alt="image" src="https://github.com/user-attachments/assets/716a94f8-a9bc-407d-bbf8-57066d9433b2" />
 
 > masukan data sampel
 ```
@@ -59,7 +59,7 @@ INSERT INTO produk (id, nama, harga) VALUES
 (4, 'Monitor', 2500000),
 (5, 'Webcam', 800000);
 ```
-<img width="600" height="277" alt="image" src="https://github.com/user-attachments/assets/71a04e99-1871-4854-99f5-f81b989cc1a8" />
+<img width="400" height="277" alt="image" src="https://github.com/user-attachments/assets/71a04e99-1871-4854-99f5-f81b989cc1a8" />
 
 ```
 EXPLAIN ANALYZE SELECT * FROM produk;
@@ -92,7 +92,7 @@ MASTER_UI_PORT=7000
 TSERVER_UI_PORT=9000
 '@ | Out-File -FilePath .env -Encoding utf8
 ```
-<img width="700" height="278" alt="image" src="https://github.com/user-attachments/assets/63b1cd1b-469d-4bcf-85fd-1b92fb155683" />
+<img width="600" height="278" alt="image" src="https://github.com/user-attachments/assets/63b1cd1b-469d-4bcf-85fd-1b92fb155683" />
 
 > buat file docker-compose.yml
 ```
@@ -110,7 +110,7 @@ services:
     command: [ "bin/yugabyted", "start", "--daemon=false", "--listen=0.0.0.0" ]
 '@ | Out-File -FilePath docker-compose.yml -Encoding utf8
 ```
-<img width="940" height="342" alt="image" src="https://github.com/user-attachments/assets/06abb98f-6698-4862-8d0f-6bbf4141ca1a" />
+<img width="600" height="342" alt="image" src="https://github.com/user-attachments/assets/06abb98f-6698-4862-8d0f-6bbf4141ca1a" />
 
 > jalankan Docker Compose
 ```
