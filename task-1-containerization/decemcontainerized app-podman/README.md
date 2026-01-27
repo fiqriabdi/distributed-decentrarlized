@@ -69,11 +69,13 @@ ls -l instance/flaskr.sqlite
 > Memantau Log secara Real-time
 <img width="600" height="290" alt="image" src="https://github.com/user-attachments/assets/33e545b7-cebf-434e-9764-cc297224434d" />
 <img width="600" height="308" alt="image" src="https://github.com/user-attachments/assets/4b66b57d-f54e-4c2d-a5ff-6848aa4f3f95" />
-<img width="624" height="744" alt="image" src="https://github.com/user-attachments/assets/8b938cd2-4462-4b61-8876-43a4fcb76363" />
-<img width="807" height="181" alt="image" src="https://github.com/user-attachments/assets/92c97065-123c-43bd-ae7b-3be83e5e7ac1" />
-<img width="600" height="621" alt="image" src="https://github.com/user-attachments/assets/1ce9c7db-4b5f-449c-a239-3f2b578c14a9" />
-<img width="600" height="155" alt="image" src="https://github.com/user-attachments/assets/79233423-731d-4d5c-9129-11c24c11744b" />
+<img width="500" height="744" alt="image" src="https://github.com/user-attachments/assets/8b938cd2-4462-4b61-8876-43a4fcb76363" />
+<img width="500" height="181" alt="image" src="https://github.com/user-attachments/assets/92c97065-123c-43bd-ae7b-3be83e5e7ac1" />
+<img width="500" height="621" alt="image" src="https://github.com/user-attachments/assets/1ce9c7db-4b5f-449c-a239-3f2b578c14a9" />
+<img width="500" height="155" alt="image" src="https://github.com/user-attachments/assets/79233423-731d-4d5c-9129-11c24c11744b" />
+> memgecek file
 
+<img width="500" height="801" alt="image" src="https://github.com/user-attachments/assets/ddb3b1c0-414a-4a15-92f6-05c1f414ab4b" />
 
 
 
