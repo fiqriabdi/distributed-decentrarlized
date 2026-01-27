@@ -1,6 +1,7 @@
-<sub> 
+###
 Instalasi Untuk instalasi, ekstraksi hasil unduhan tersebut kemudian letakkan pada subdirektori tertentu, buat symlink (jika diperlukan), buat file untuk env variables. Setelah itu, setiap akan mengaktifkan YugabyteDB pada setiap shell, source file env variables tersebut.
-</sub>
+###
+
 
 ```
 docker pull software.yugabyte.com/yugabytedb/yugabyte:2025.2.0.0-b131
@@ -49,7 +50,9 @@ docker exec -it yugabyte-local bin/ysqlsh -h 172.17.0.3
 ```
 <img width="600" height="77" alt="image" src="https://github.com/user-attachments/assets/e1c2bac4-57d4-4b14-b13d-253ca7cd8cd9" />
 
-> membuat tabel
+<sub> membuat tabel
+</sub>
+
 ```
 Membuat tabel dengan 3 tablet 
 CREATE TABLE produk (
@@ -94,7 +97,9 @@ mkdir yugabyte-lab
 cd yugabyte-lab
 ```
 
-> buat file .env
+<sub> buat file .env
+</sub>
+
 ```
 @'
 CONTAINER_NAME=yugabyte-local
@@ -107,7 +112,10 @@ TSERVER_UI_PORT=9000
 ```
 <img width="400" height="278" alt="image" src="https://github.com/user-attachments/assets/63b1cd1b-469d-4bcf-85fd-1b92fb155683" />
 
-> buat file docker-compose.yml
+<sub> 
+buat file docker-compose.yml
+</sub>
+
 ```
 @'
 version: '3.8'
@@ -125,7 +133,10 @@ services:
 ```
 <img width="400" height="342" alt="image" src="https://github.com/user-attachments/assets/06abb98f-6698-4862-8d0f-6bbf4141ca1a" />
 
-> jalankan Docker Compose
+<sub> 
+jalankan Docker Compose
+</sub>
+
 ```
 docker-compose up -d
 ```
@@ -136,7 +147,10 @@ docker ps
 ```
 <img width="600" height="117" alt="image" src="https://github.com/user-attachments/assets/7e6d289b-d95b-47a4-ae6a-0688d7fe0786" />
 
-> masuk ke Shell YSQL
+<sub> 
+masuk ke Shell YSQL
+</sub>
+    
 ```
 docker exec -it yugabyte-local bin/ysqlsh -h 127.0.0.1
 ```
@@ -145,16 +159,25 @@ docker exec -it yugabyte-local bin/ysqlsh -h 127.0.0.1
 ```
 EXPLAIN ANALYZE SELECT * FROM mhs_hash WHERE nim BETWEEN 10 AND 20;
 ```
-> uji has sharding
+<sub> 
+uji has sharding
+</sub>
+
 <img width="600" height="219" alt="image" src="https://github.com/user-attachments/assets/43e48220-15de-463b-8bac-7f6d5e444b1d" />
 
- > uji range sharding
+ <sub> 
+ uji range sharding
+ </sub>
+
 ```
 EXPLAIN ANALYZE SELECT * FROM mhs_range WHERE nim BETWEEN 10 AND 20;
 ```
 <img width="600" height="175" alt="image" src="https://github.com/user-attachments/assets/4bd8f6d5-4ba2-4db5-b0e5-6f8a465099cf" />
 
-> menjalanlan/cek status
+<sub> 
+menjalanlan/cek status
+</sub>
+
 ```
 docker exec -it yugabyte-local bin/yugabyted status
 ```
