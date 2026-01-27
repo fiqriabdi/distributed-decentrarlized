@@ -26,7 +26,7 @@ docker ps
 
 <img width="600" height="200" alt="image" src="https://github.com/user-attachments/assets/cb8fbd5b-b4d3-4ead-81a5-b5c266f97d6b" />
 
-sub> 
+<sub> 
 ekstraksi
 </sub>
 
