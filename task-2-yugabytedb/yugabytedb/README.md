@@ -6,11 +6,12 @@ Instalasi Untuk instalasi, ekstraksi hasil unduhan tersebut kemudian letakkan pa
 docker pull software.yugabyte.com/yugabytedb/yugabyte:2025.2.0.0-b131
 ```
 <img width="941" height="457" alt="image" src="https://github.com/user-attachments/assets/20a164f3-ff23-4923-ab72-8784825780f5" />
+
 > proses Pull Image telah berhasil
 
 
 
-** menjalakan container**
+<sub>  menjalakan container </sub>
 ```
 docker run -d --name yugabyte -p7000:7000 -p9000:9000 -p15433:15433 -p5433:5433 -p9042:9042  yugabytedb/yugabyte:2025.2.0.0-b131 bin/yugabyted start  --background=false
 ```
@@ -19,10 +20,16 @@ docker run -d --name yugabyte -p7000:7000 -p9000:9000 -p15433:15433 -p5433:5433 
 ```
 docker ps
 ```
-> memeriksa status klaster
+
+<sub> memeriksa status klaster
+</sub>
+
 <img width="600" height="200" alt="image" src="https://github.com/user-attachments/assets/cb8fbd5b-b4d3-4ead-81a5-b5c266f97d6b" />
 
-> Ekstraksi
+sub> 
+ekstraksi
+</sub>
+
 ```
 docker exec -it yugabyte ls -l /home/yugabyte/bin
 ```
@@ -53,7 +60,10 @@ CREATE TABLE produk (
 ```
 <img width="400" height="205" alt="image" src="https://github.com/user-attachments/assets/716a94f8-a9bc-407d-bbf8-57066d9433b2" />
 
-> masukan data sampel
+<sub> 
+masukan data sampel
+</sub>
+
 ```
 INSERT INTO produk (id, nama, harga) VALUES 
 (1, 'Laptop', 15000000),
@@ -84,7 +94,7 @@ mkdir yugabyte-lab
 cd yugabyte-lab
 ```
 
-> Buat file .env
+> buat file .env
 ```
 @'
 CONTAINER_NAME=yugabyte-local
