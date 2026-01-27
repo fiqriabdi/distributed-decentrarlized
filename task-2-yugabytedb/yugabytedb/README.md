@@ -1,13 +1,16 @@
-> Instalasi Untuk instalasi, ekstraksi hasil unduhan tersebut kemudian letakkan pada subdirektori tertentu, buat symlink (jika diperlukan), buat file untuk env variables. Setelah itu, setiap akan mengaktifkan YugabyteDB pada setiap shell, source file env variables tersebut.
+<sub> 
+Instalasi Untuk instalasi, ekstraksi hasil unduhan tersebut kemudian letakkan pada subdirektori tertentu, buat symlink (jika diperlukan), buat file untuk env variables. Setelah itu, setiap akan mengaktifkan YugabyteDB pada setiap shell, source file env variables tersebut.
+</sub>
 
 ```
 docker pull software.yugabyte.com/yugabytedb/yugabyte:2025.2.0.0-b131
 ```
 <img width="941" height="457" alt="image" src="https://github.com/user-attachments/assets/20a164f3-ff23-4923-ab72-8784825780f5" />
-> Proses Pull Image telah berhasil
+> proses Pull Image telah berhasil
 
-> menjalankan container
 
+
+** menjalakan container**
 ```
 docker run -d --name yugabyte -p7000:7000 -p9000:9000 -p15433:15433 -p5433:5433 -p9042:9042  yugabytedb/yugabyte:2025.2.0.0-b131 bin/yugabyted start  --background=false
 ```
@@ -140,6 +143,177 @@ EXPLAIN ANALYZE SELECT * FROM mhs_hash WHERE nim BETWEEN 10 AND 20;
 EXPLAIN ANALYZE SELECT * FROM mhs_range WHERE nim BETWEEN 10 AND 20;
 ```
 <img width="600" height="175" alt="image" src="https://github.com/user-attachments/assets/4bd8f6d5-4ba2-4db5-b0e5-6f8a465099cf" />
+
+> menjalanlan/cek status
+```
+docker exec -it yugabyte-local bin/yugabyted status
+```
+<img width="940" height="300" alt="image" src="https://github.com/user-attachments/assets/214b250a-7dad-4c61-99ea-0f90545039d1" />
+
+> membuat klaster baru
+
+> hapus container lama dan jalankan klaster 3-node ini
+
+* hapus container lama
+  ```
+  docker-compose down
+  ```
+  <img width="940" height="229" alt="image" src="https://github.com/user-attachments/assets/b44a47a3-0aa0-48f3-8efc-380c481a01d5" />
+
+* jalankan klaster 3 n-node
+  ```
+  docker-compose up -d
+  ```
+
+  
+  ```
+  * Node 1
+  docker run -d --name yb-master-n1 --network yb-net `
+  -p 7000:7000 -p 5433:5433 -p 9042:9042 `
+  yugabytedb/yugabyte:latest
+  bin/yugabyted start --daemon=false --listen=yb-master-n1
+```
+* Jalankan Node 2
+  
+docker run -d --name yb-master-n2 --network yb-net `
+  yugabytedb/yugabyte:latest `
+  bin/yugabyted start --daemon=false --join=yb-master-n1 --listen=yb-master-n2
+```
+```
+* Jalankan Node 3
+docker run -d --name yb-master-n3 --network yb-net `
+  yugabytedb/yugabyte:latest `
+  bin/yugabyted start --daemon=false --join=yb-master-n1 --listen=yb-master-n3
+```
+<img width="600" height="335" alt="image" src="https://github.com/user-attachments/assets/80627a1c-b42e-4a9f-80a2-2e4ac2ee9dd7" />
+
+
+> memgecek status dengan node 1
+```
+docker exec -it yb-master-n1 bin/yugabyted status
+```
+<img width="940" height="273" alt="image" src="https://github.com/user-attachments/assets/06f23c73-5f17-4090-8f0a-814f77872586" />
+
+
+> memgecek status dengan node 2
+```
+docker exec -it yb-master-n2 bin/yugabyted status
+```
+<img width="940" height="271" alt="image" src="https://github.com/user-attachments/assets/53bb4c3b-4bd3-4aba-97ba-ceb7e465abf5" />
+
+> memgecek status dengan node 3
+```
+docker exec -it yb-master-n3 bin/yugabyted status
+```
+<img width="500" height="298" alt="image" src="https://github.com/user-attachments/assets/98f04c6e-aff5-45f3-a779-f023a89a0fac" />
+
+**
+raange sharding secara default akan membentuk hanya 1 tablet untuk 1 tabel: 
+**
+```
+docker exec -it yb-master-n1 bin/ysqlsh -h yb-master-n1 -U yugabyte -d yugabyte
+```
+<img width="500" height="238" alt="image" src="https://github.com/user-attachments/assets/6905931f-29c5-4937-96ba-a41e72c3b7a7" />
+
+<sub>
+membuat nama tabel dengan nama users 
+</sub>
+
+```
+CREATE TABLE users ( user_id INT, username VARCHAR, PRIMARY KEY (user_id ASC) ) SPLIT AT VALUES ((1000), (2000), (3000));
+```
+
+<sub>
+setelah itu memangil/cek users dan user_id
+</sub>
+
+```
+EXPLAIN (ANALYZE, DIST, COSTS OFF) SELECT * FROM users;
+```
+<img width="500" height="621" alt="image" src="https://github.com/user-attachments/assets/2a0adf69-04a4-4a16-a60e-c4c22680d0b6" />
+
+
+```
+EXPLAIN (ANALYZE, DIST, COSTS OFF) SELECT FROM users WHERE user_id = 1;
+```
+<img width="500" height="521" alt="image" src="https://github.com/user-attachments/assets/c946986b-9322-4446-baca-962a04268118" />
+
+```
+EXPLAIN (ANALYZE, DIST, COSTS OFF) SELECT * FROM users WHERE user_id >= 2 AND user_id < 6;
+```
+<img width="940" height="408" alt="image" src="https://github.com/user-attachments/assets/c34b5adc-36c6-4bdd-add6-2d502353daa7" />
+
+```
+EXPLAIN (ANALYZE, DIST, COSTS OFF) SELECT * FROM users WHERE user_id BETWEEN 2 AND 6;
+```
+<img width="940" height="433" alt="image" src="https://github.com/user-attachments/assets/82c76c14-1df2-48cd-b47c-cf348376e929" />
+
+<sub
+Untuk query  (semua baris): data yang dibaca semua baris 2. Untuk query satu baris: data yang dibaca 1 baris 3. Untuk query range (lebih dari 1 baris): data yang dibaca persis sama dengan jumlah yang sesuai (tidak membaca semua data). 
+</sub>
+
+<sub>
+untuk melihat jumlah tablet pada tabel, gunakan perintah berikut
+</sub>
+
+```
+\d
+```
+<img width="738" height="339" alt="image" src="https://github.com/user-attachments/assets/ed1f39f8-b065-4337-9540-55df937a2206" />
+> menampilkan jumlah tablet
+> jika list of relations tabel ini kosong, kita buat tabel baru
+```
+docker exec -it yb-master-n1 bin/ysqlsh -h yb-master-n1 -U yugabyte -d yugabyte
+```
+
+> membuat tabel users
+```
+CREATE TABLE users (
+    id INT PRIMARY KEY,
+    nama TEXT
+) SPLIT INTO 3 TABLETS;
+
+> masukan nama tabel baru
+```
+
+> membuat tabel users_hash
+```
+CREATE TABLE user_hash (
+    id INT PRIMARY KEY,
+    nama TEXT
+) SPLIT INTO 3 TABLETS;
+```
+
+<sub>
+mengecek tabel range dan tabel hash
+</sub>
+
+```
+SELECT * FROM yb_table_properties('user_range'::regclass);
+```
+<img width="940" height="258" alt="image" src="https://github.com/user-attachments/assets/40a77bbc-431f-4835-84f3-4615ce7b68d6" />
+
+```
+SELECT * FROM yb_table_properties('user_hash'::regclass);
+```
+<img width="940" height="258" alt="image" src="https://github.com/user-attachments/assets/d8791f29-9d3c-4b03-930a-3721d03bbc7c" />
+
+
+
+*
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
