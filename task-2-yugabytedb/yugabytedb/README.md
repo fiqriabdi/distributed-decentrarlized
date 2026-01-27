@@ -232,7 +232,7 @@ docker exec -it yb-master-n1 bin/yugabyted status
 ```
 docker exec -it yb-master-n2 bin/yugabyted status
 ```
-<img width="940" height="271" alt="image" src="https://github.com/user-attachments/assets/53bb4c3b-4bd3-4aba-97ba-ceb7e465abf5" />
+<img width="600" height="271" alt="image" src="https://github.com/user-attachments/assets/53bb4c3b-4bd3-4aba-97ba-ceb7e465abf5" />
 
 > memgecek status dengan node 3
 ```
