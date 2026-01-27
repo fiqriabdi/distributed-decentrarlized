@@ -7,7 +7,7 @@
 
 ## Portfolio & Keahlian
 * **Tech Stack:** Python, PHP, Node.js, Docker, Podman, Blockchain Basics.
-* **Deskripsi:** Saya adalah mahasiswa Informatika yang memiliki ketertarikan mendalam pada arsitektur sistem skala besar, kontainerisasi, dan teknologi Web3. Saya fokus pada bagaimana membangun sistem yang scalable dan high-availability.
+* **Deskripsi:** Saya adalah mahasiswa Informatika yang memiliki ketertarikan (belajar) mendalam pada arsitektur sistem skala besar, kontainerisasi, dan teknologi Web3. Saya fokus pada bagaimana membangun sistem yang scalable dan high-availability.
 
 ---
 
