@@ -12,7 +12,7 @@ docker pull software.yugabyte.com/yugabytedb/yugabyte:2025.2.0.0-b131
 
 
 
-<sub>  menjalakan container </sub>
+menjalakan container 
 ```
 docker run -d --name yugabyte -p7000:7000 -p9000:9000 -p15433:15433 -p5433:5433 -p9042:9042  yugabytedb/yugabyte:2025.2.0.0-b131 bin/yugabyted start  --background=false
 ```
@@ -27,8 +27,8 @@ docker ps
 
 <img width="600" height="200" alt="image" src="https://github.com/user-attachments/assets/cb8fbd5b-b4d3-4ead-81a5-b5c266f97d6b" />
 
-<sub> 
-ekstraksi
+
+<sub> ekstraksi
 </sub>
 
 ```
@@ -50,8 +50,10 @@ docker exec -it yugabyte-local bin/ysqlsh -h 172.17.0.3
 ```
 <img width="600" height="77" alt="image" src="https://github.com/user-attachments/assets/e1c2bac4-57d4-4b14-b13d-253ca7cd8cd9" />
 
-<sub> membuat tabel
-</sub>
+***
+membuat tabel
+
+
 
 ```
 Membuat tabel dengan 3 tablet 
@@ -61,12 +63,10 @@ CREATE TABLE produk (
     harga INT
 ) SPLIT INTO 3 TABLETS;
 ```
-<img width="400" height="205" alt="image" src="https://github.com/user-attachments/assets/716a94f8-a9bc-407d-bbf8-57066d9433b2" />
+<img width="300" height="205" alt="image" src="https://github.com/user-attachments/assets/716a94f8-a9bc-407d-bbf8-57066d9433b2" />
 
-<sub> 
+
 masukan data sampel
-</sub>
-
 ```
 INSERT INTO produk (id, nama, harga) VALUES 
 (1, 'Laptop', 15000000),
@@ -76,6 +76,8 @@ INSERT INTO produk (id, nama, harga) VALUES
 (5, 'Webcam', 800000);
 ```
 <img width="400" height="277" alt="image" src="https://github.com/user-attachments/assets/71a04e99-1871-4854-99f5-f81b989cc1a8" />
+
+***
 
 ```
 EXPLAIN ANALYZE SELECT * FROM produk;
