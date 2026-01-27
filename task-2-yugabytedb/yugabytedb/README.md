@@ -99,9 +99,8 @@ mkdir yugabyte-lab
 cd yugabyte-lab
 ```
 
-<sub> buat file .env
-</sub>
 
+buat file .env
 ```
 @'
 CONTAINER_NAME=yugabyte-local
@@ -114,10 +113,8 @@ TSERVER_UI_PORT=9000
 ```
 <img width="400" height="278" alt="image" src="https://github.com/user-attachments/assets/63b1cd1b-469d-4bcf-85fd-1b92fb155683" />
 
-<sub> 
-buat file docker-compose.yml
-</sub>
 
+buat file docker-compose.yml
 ```
 @'
 version: '3.8'
@@ -135,10 +132,8 @@ services:
 ```
 <img width="400" height="342" alt="image" src="https://github.com/user-attachments/assets/06abb98f-6698-4862-8d0f-6bbf4141ca1a" />
 
-<sub> 
-jalankan Docker Compose
-</sub>
 
+jalankan Docker Compose
 ```
 docker-compose up -d
 ```
@@ -149,10 +144,8 @@ docker ps
 ```
 <img width="600" height="117" alt="image" src="https://github.com/user-attachments/assets/7e6d289b-d95b-47a4-ae6a-0688d7fe0786" />
 
-<sub> 
-masuk ke Shell YSQL
-</sub>
-    
+ 
+masuk ke Shell YSQL    
 ```
 docker exec -it yugabyte-local bin/ysqlsh -h 127.0.0.1
 ```
@@ -161,33 +154,27 @@ docker exec -it yugabyte-local bin/ysqlsh -h 127.0.0.1
 ```
 EXPLAIN ANALYZE SELECT * FROM mhs_hash WHERE nim BETWEEN 10 AND 20;
 ```
-<sub> 
 uji has sharding
-</sub>
 
 <img width="600" height="219" alt="image" src="https://github.com/user-attachments/assets/43e48220-15de-463b-8bac-7f6d5e444b1d" />
 
- <sub> 
+  
  uji range sharding
- </sub>
-
 ```
 EXPLAIN ANALYZE SELECT * FROM mhs_range WHERE nim BETWEEN 10 AND 20;
 ```
 <img width="600" height="175" alt="image" src="https://github.com/user-attachments/assets/4bd8f6d5-4ba2-4db5-b0e5-6f8a465099cf" />
 
-<sub> 
+***
 menjalanlan/cek status
-</sub>
-
 ```
 docker exec -it yugabyte-local bin/yugabyted status
 ```
 <img width="940" height="300" alt="image" src="https://github.com/user-attachments/assets/214b250a-7dad-4c61-99ea-0f90545039d1" />
 
-> membuat klaster baru
-
-> hapus container lama dan jalankan klaster 3-node ini
+***
+membuat klaster baru
+* hapus container lama dan jalankan klaster 3-node ini
 
 * hapus container lama
   ```
@@ -199,8 +186,6 @@ docker exec -it yugabyte-local bin/yugabyted status
   ```
   docker-compose up -d
   ```
-
-  
   ```
   * Node 1
   docker run -d --name yb-master-n1 --network yb-net `
@@ -220,8 +205,10 @@ docker run -d --name yb-master-n3 --network yb-net `
   yugabytedb/yugabyte:latest `
   bin/yugabyted start --daemon=false --join=yb-master-n1 --listen=yb-master-n3
 ```
+
 <img width="600" height="335" alt="image" src="https://github.com/user-attachments/assets/80627a1c-b42e-4a9f-80a2-2e4ac2ee9dd7" />
 
+***
 
 > memgecek status dengan node 1
 ```
