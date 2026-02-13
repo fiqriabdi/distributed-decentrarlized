@@ -146,7 +146,7 @@ services:
       - "${YCQL_PORT}:9042"
       - "${MASTER_UI_PORT}:7000"
       - "${TSERVER_UI_PORT}:9000"
-    command: [ "bin/yugabyted", "start", "--daemon=false", "--listen=0.0.0.0" ]
+    command: ["bin/yugabyted", "start", "--daemon=false", "--listen=0.0.0.0"]
 ```
 
 ---
@@ -155,13 +155,10 @@ services:
 
 ```bash
 docker-compose up -d
-```
-
-```bash
 docker ps
 ```
 
-<img src="https://github.com/user-attachments/assets/7e6d289b-d95b-47a4-ae6a-0688d7fe0786" width="550" />
+<img src="https://github.com/user-attachments/assets/7e6d289b-d95b-47a4-ae6a-0688d7fe0786" width="650" />
 
 Masuk ke shell YSQL:
 
@@ -177,13 +174,25 @@ docker exec -it yugabyte-local bin/ysqlsh -h 127.0.0.1
 EXPLAIN ANALYZE SELECT * FROM mhs_hash WHERE nim BETWEEN 10 AND 20;
 ```
 
-<img src="https://github.com/user-attachments/assets/43e48220-15de-463b-8bac-7f6d5e444b1d" width="550" />
+<img width="550" height="219" alt="image" src="https://github.com/user-attachments/assets/50053a2d-41d1-4871-b790-ef50825afc92" />
+
 
 ```sql
 EXPLAIN ANALYZE SELECT * FROM mhs_range WHERE nim BETWEEN 10 AND 20;
 ```
 
-<img src="https://github.com/user-attachments/assets/4bd8f6d5-4ba2-4db5-b0e5-6f8a465099cf" width="550" />
+<img width="550" height="175" alt="image" src="https://github.com/user-attachments/assets/920d0c94-1a28-4284-9e0b-3c6532128127" />
+
+---
+
+
+## Cara Mengecek Status Yugabyte
+
+```bash
+docker exec -it yugabyte-local bin/yugabyted status
+```
+
+<img width="550" height="300" alt="image" src="https://github.com/user-attachments/assets/c1026d67-0769-4916-bac1-c3a0927f0875" />
 
 ---
 
@@ -195,7 +204,17 @@ EXPLAIN ANALYZE SELECT * FROM mhs_range WHERE nim BETWEEN 10 AND 20;
 docker-compose down
 ```
 
+<img width="550" height="229" alt="image" src="https://github.com/user-attachments/assets/9e8a72be-af85-4441-8f11-8cd62a7bb1b0" />
+
+
 ### 8.2 Menjalankan Cluster 3 Node
+
+```
+docker-compose up -d
+```
+
+<img width="550" height="335" alt="image" src="https://github.com/user-attachments/assets/cb9eddbc-38bc-4545-b682-ec2b22ffe0b6" />
+
 
 **Node 1**
 
@@ -224,8 +243,133 @@ bin/yugabyted start --daemon=false --join=yb-master-n1 --listen=yb-master-n3
 
 ---
 
-## 9. Kesimpulan
+### Mengecek Status ketiga klaster Yugabyte 
 
-Berdasarkan pengujian yang dilakukan, YugabyteDB berhasil dijalankan menggunakan Docker baik dalam mode **single-node** maupun **cluster multi-node**. Pengujian sharding (hash dan range) menunjukkan bahwa YugabyteDB mampu membaca data secara efisien sesuai dengan query yang diberikan tanpa harus melakukan full table scan.
+**Node 1**
+
+```
+docker exec -it yb-master-n1 bin/yugabyted status
+```
+
+<img width="550" height="273" alt="image" src="https://github.com/user-attachments/assets/ff620c1f-afc6-477c-b33b-2c8614410eff" />
+
+
+**Node 2**
+
+```
+docker exec -it yb-master-n2 bin/yugabyted status
+```
+
+<img width="550" height="271" alt="image" src="https://github.com/user-attachments/assets/0e2f21d9-be32-4c30-8232-4e40737b2f83" />
+
+
+**Node 3**
+```
+docker exec -it yb-master-n3 bin/yugabyted status
+```
+
+<img width="550" height="298" alt="image" src="https://github.com/user-attachments/assets/881fe1c8-8154-47e8-b922-cd7d8e506c7a" />
+
+---
+
+
+## 9. Pengujian Range Sharding
+
+### Membuat Table Users
+
+```
+docker exec -it yb-master-n1 bin/ysqlsh -h yb-master-n1 -U yugabyte -d yugabyte
+```
+
+<img width="550" height="238" alt="image" src="https://github.com/user-attachments/assets/23225e63-cddf-4329-b1dc-caf1c28e8152" />
+
+
+
+```sql
+CREATE TABLE users (
+    user_id INT,
+    username VARCHAR,
+    PRIMARY KEY (user_id ASC)
+) SPLIT AT VALUES ((1000), (2000), (3000));
+```
+
+### Pengujian Query
+
+```sql
+EXPLAIN (ANALYZE, DIST, COSTS OFF) SELECT * FROM users;
+```
+<img width="550" height="621" alt="image" src="https://github.com/user-attachments/assets/00291b17-9e6b-4ad1-8867-69f23a8f42a6" />
+
+
+```sql
+EXPLAIN (ANALYZE, DIST, COSTS OFF) SELECT * FROM users WHERE user_id = 1;
+```
+<img width="550" height="521" alt="image" src="https://github.com/user-attachments/assets/ea39061b-0361-42cf-b3e6-cc651a1e66a4" />
+
+
+
+```sql
+EXPLAIN (ANALYZE, DIST, COSTS OFF) SELECT * FROM users WHERE user_id >= 2 AND user_id < 6;
+```
+<img width="550" height="408" alt="image" src="https://github.com/user-attachments/assets/59eaee06-c9fd-4dda-8ef6-f354839bf408" />
+
+
+
+```sql
+EXPLAIN (ANALYZE, DIST, COSTS OFF) SELECT * FROM users WHERE user_id BETWEEN 2 AND 6;
+```
+<img width="550" height="433" alt="image" src="https://github.com/user-attachments/assets/f5e15641-25fa-450e-aad1-592320450c03" />
+
+
+
+### Hasil Pengamatan
+
+1. Untuk query semua baris (`SELECT *`): data yang dibaca adalah seluruh baris.
+2. Untuk query satu baris: data yang dibaca hanya 1 baris.
+3. Untuk query range: data yang dibaca persis sesuai jumlah yang diminta (tidak membaca seluruh tabel).
+
+---
+
+## Mengecek Jumlah Tablet
+
+```sql
+\d
+```
+<img width="550" height="339" alt="image" src="https://github.com/user-attachments/assets/c73385ea-db18-45e5-bb21-3d62230c2bd6" />
+
+
+
+## Mengecek Tabel Range
+
+```sql
+SELECT * FROM yb_table_properties('user_range'::regclass);
+```
+<img width="550" height="258" alt="image" src="https://github.com/user-attachments/assets/54d6318f-bb06-4660-9932-641b0a76963b" />
+
+---
+
+## Membuat dan Mengecek Tabel Hash
+
+```sql
+CREATE TABLE user_hash (
+    id INT PRIMARY KEY,
+    nama TEXT
+) SPLIT INTO 3 TABLETS;
+```
+
+```sql
+SELECT * FROM yb_table_properties('user_hash'::regclass);
+```
+<img width="550" height="258" alt="image" src="https://github.com/user-attachments/assets/d6dfa141-be7e-4ea7-8101-c4735bb6ca7b" />
+
+
+
+---
+
+## 10. Kesimpulan
+
+Berdasarkan pengujian yang dilakukan, YugabyteDB berhasil dijalankan menggunakan Docker baik dalam mode **single-node** maupun **cluster multi-node**.  
+
+Pengujian sharding (hash dan range) menunjukkan bahwa YugabyteDB mampu membaca data secara efisien sesuai dengan query yang diberikan tanpa harus melakukan full table scan.
 
 Pendekatan container ini memudahkan proses instalasi, replikasi, dan pengujian database terdistribusi di berbagai lingkungan.
