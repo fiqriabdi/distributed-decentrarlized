@@ -1,4 +1,4 @@
-# Task 1: Membangun Containerized App - Docker dan Podman
+# Task 1: Membangun Containerized App - Docker
 
 ## Penjelasan Task
 Pada tugas ini, saya mendemonstrasikan cara mengemas aplikasi ke dalam container menggunakan dua teknologi populer: **Docker** dan **Podman**. 
@@ -6,10 +6,7 @@ Pada tugas ini, saya mendemonstrasikan cara mengemas aplikasi ke dalam container
 - **Perbedaan:** Saya juga menjelaskan sedikit perbedaan pengalaman menggunakan Docker (daemon-based) dan Podman (daemonless/rootless).
 
 ## Video Penjelasan
-[![Video Task 1](https://img.youtube.com/vi/ID_VIDEO_YOUTUBE_ANDA/0.jpg)](https://www.youtube.com/watch?v=ID_VIDEO_YOUTUBE_ANDA)
+[![Video Task 1](https://drive.google.com/file/d/1C8VacK-miv_pwXMDHskltO_WMin0V1pa/view?usp=sharing)
 
 *Klik gambar di atas untuk memutar video penjelasan (Menampilkan Wajah).*
 
-## Source Code & File
-- [Dockerfile](./Dockerfile)
-- [Source Code Aplikasi](./src/)
