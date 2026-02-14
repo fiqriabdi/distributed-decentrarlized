@@ -6,10 +6,7 @@ Tugas ini fokus pada implementasi database terdistribusi menggunakan **YugabyteD
 - **Implementasi:** Saya mendemonstrasikan cara melakukan deployment cluster YugabyteDB secara lokal, membuat tabel, dan menunjukkan bagaimana replikasi data terjadi di antara node untuk memastikan toleransi kesalahan (*fault tolerance*).
 
 ## Video Penjelasan
-[![Video Task 2](https://img.youtube.com/vi/ID_VIDEO_YOUTUBE_ANDA/0.jpg)](https://www.youtube.com/watch?v=ID_VIDEO_YOUTUBE_ANDA)
+https://drive.google.com/file/d/1W6UhYrif4rQx0N6_38cHs9pxdg_1sxdP/view?usp=sharing
 
 *Klik gambar di atas untuk memutar video penjelasan (Menampilkan Wajah).*
 
-## File Konfigurasi
-- [Docker Compose / Scripts](./yugabyte-setup.sh)
-- [DDL SQL Queries](./init.sql)
