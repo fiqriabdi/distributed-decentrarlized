@@ -12,7 +12,7 @@
 
 ### Daftar Tugas:
 1. [Task 1 sebelum UTS load balancing menggunakan nginx](load-balancing-nginx)
-2. [Task 2 setelah UTS: Membangun Containerized App - Docker dan Podman](./task-1-containerization/)
+2. [Task 2 setelah UTS: Membangun Containerized App - Docker dan Podman](./task-2-containerization/)
 2. [Task 2 setelah UTS Data Terdistribusi - YugabyteDB](./task-2-yugabytedb/)
 
 
