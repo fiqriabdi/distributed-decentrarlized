@@ -1,5 +1,5 @@
 
-# Task2: Load Balancing menggunakan Nginx
+# Task1: Load Balancing menggunakan Nginx
 
 ## Deskripsi
 Task ini bertujuan untuk mengimplementasikan konsep load balancing sebagai bagian dari sistem terdistribusi. Nginx digunakan sebagai load balancer untuk mendistribusikan request ke beberapa backend service yang berjalan pada container Docker.
