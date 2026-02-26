@@ -1,4 +1,4 @@
-# Langkah pengerjaan task2  
+# Langkah pengerjaan task1  
 
 ### Struktur direktori
 
