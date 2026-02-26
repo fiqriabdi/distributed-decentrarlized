@@ -32,7 +32,7 @@ Implementasi dilakukan menggunakan Docker Compose untuk menjalankan beberapa con
 - 1 container Nginx
 - 2 container backend application
 
-Link implementasi: [langkah-task2.md](langkah-task1.md)
+Link implementasi: [langkah-task1.md](langkah-task1.md)
 
 Nginx dikonfigurasi menggunakan metode default (round-robin) untuk mendistribusikan request ke backend.
 
