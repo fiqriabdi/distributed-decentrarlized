@@ -1,4 +1,4 @@
-# Task 1: Membangun Containerized App - Docker dan Podman
+# Task 2: Membangun Containerized App - Docker dan Podman
 
 ## Penjelasan Task
 Pada tugas ini, saya mendemonstrasikan cara mengemas aplikasi ke dalam container menggunakan dua teknologi populer: **Docker** dan **Podman**. 
